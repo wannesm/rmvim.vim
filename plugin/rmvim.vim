@@ -1,7 +1,8 @@
 " rmvim.vim plugin
 " Author: Wannes Meert
 " Url: http://people.cs.kuleuven.be/wannes.meert/
-" Version: 0.1
+" Version: 1.0
+" Date: 23/12/2011
 
 if exists('s:loaded')
 	finish
