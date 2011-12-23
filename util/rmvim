@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+# encoding: UTF-8
+#
+# Created by Wannes Meert on 2011-12-20.
+# Copyright (c) 2011 KULeuven. All rights reserved.
+
+VERSION='rmvim version 0.1 (2011-12-20)'
+
+HOST=localhost
+PORT=52699
+VERBOSE=0
+PATH=""
+
+USAGE="Usage: rmvim [-vVh] [-p portnumber] file"
+
+while getopts vVhp: o
+do  case "$o" in
+    v)      VERBOSE=1;;
+    p)      PORT="$OPTARG";;
+    V)      echo "$VERSION"
+            exit 1;;
+    h)      echo "$USAGE" >&2
+            exit 1;;
+    [?])    echo "$USAGE" >&2
+            exit 1;;
+    esac
+done
+shift $(($OPTIND-1))
+PATH=$1
+
+# VALUES
+LHOST=${SSH_CONNECTION%% *}
+RHOST=${SSH_CONNECTION#* }
+RHOST=${RHOST#* }
+RHOST=${RHOST%% *} # Get 3rd argument, separated by spaces
+if [ -z "$RHOST" ]; then
+	RHOST=$HOST
+fi
+
+# MAIN
+if [ $VERBOSE -eq 1 ]; then
+    echo "RHOST=$RHOST"
+fi
+
+exec 3<>/dev/tcp/$HOST/$PORT # Open tcp connection and assign fd 3 to it
+echo -e "open:scp://$RHOST/$(pwd)/$PATH" >&3
+exec 3>&- # Close fd 3
+
+: <<=cut
+=pod
+
+=head1 RMVIM
+
+rmvim - Start local mvim instance from a remote server.
+
+=head1 DESCRIPTION
+
+This script starts mvim on your local machine and opens the file given as
+argument (or the current directory if no argument is given).
+
+It is based on the idea of rmate included with TextMate 2.0
+(see www.macromates.com).
+
+To be used in conjuntion with rmvim_listener.
+
+=head1 USAGE
+
+rmvim [-vVh] [-p portnumber] file
+
+=over 8
+
+=item -v Verbose
+
+=item -V Version
+
+=item -h Help
+
+=item -p Portnumber (default: 52699)
+
+=back
+
+=head1 AUTHOR
+
+Wannes Meert
+
+http://people.cs.kuleuven.be/wannes.meert
+
+=head1 LICENSE
+
+FreeBDS License
+
+Copyright (c) 2011, Wannes Meert (KULeuven). All rights reserved.
+
+=cut
+
+#vim: ft=SH expandtab
+

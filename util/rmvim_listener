@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# encoding: UTF-8
+#
+# Created by Wannes Meert on 2011-12-20.
+# Copyright (c) 2011 KULeuven. All rights reserved.
+
+VERSION='rmvim version 0.1 (2011-12-20)'
+
+HOST=localhost
+PORT=52699
+VERBOSE=0
+VIM=mvim
+
+USAGE="Usage: $0 [-vVh] [-p portnumber] [-c vimcmd]"
+
+while getopts vVhp:c: o
+do  case "$o" in
+    v)      VERBOSE=1;;
+    p)      PORT="$OPTARG";;
+    c)      VIM="$OPTARG";;
+    V)      echo "$VERSION"
+            exit 1;;
+    h)      echo "$USAGE" >&2
+            exit 1;;
+    [?])    echo "$USAGE" >&2
+            exit 1;;
+    esac
+done
+shift $(($OPTIND-1))
+
+# FUNCTIONS
+OPEN() {
+  if [ $VERBOSE -eq 1 ]; then echo "open" $1; fi
+  $VIM $1
+}
+
+# MAIN
+nc -z $HOST $PORT 2>&1 > /dev/null
+if [ $? -eq 0 ]; then
+	if [ $VERBOSE -eq 1 ]; then echo "Already instance listening to $PORT"; fi
+	exit
+fi
+
+nc -k -l $PORT | while read EVENT
+do
+  CMD=${EVENT%%:*}
+  ARG=${EVENT#*:}
+  if [ $VERBOSE -eq 1 ]; then echo "CMD=$CMD ARG=$ARG"; fi
+  case $CMD in
+    open) OPEN $ARG;;
+	*) echo "Unrecognized event: " $EVENT
+  esac
+done
+
+: <<=cut
+=pod
+
+=head1 RMVIM
+
+rmvim_listener - Start listening for mvim requests from remote server.
+
+=head1 DESCRIPTION
+
+This script listens for remote instances of rmvim to request a new mvim
+instance for a particular remote file.
+
+It is based on the idea of rmate included with TextMate 2.0
+(see www.macromates.com).
+
+To be used in conjuntion with rmvim.
+
+=head1 USAGE
+
+rmvim_listener [-vVh] [-p portnumber] [-c vimcmd]
+
+=over 8
+
+=item -v Verbose
+
+=item -V Version
+
+=item -h Help
+
+=item -p Portnumber (default: 52699)
+
+=item -c Vim command (default: mvim)
+
+=back
+
+=head1 AUTHOR
+
+Wannes Meert
+
+http://people.cs.kuleuven.be/wannes.meert
+
+=head1 LICENSE
+
+FreeBDS License
+
+Copyright (c) 2011, Wannes Meert (KULeuven). All rights reserved.
+
+=cut
+
+#vim: ft=SH expandtab
+
