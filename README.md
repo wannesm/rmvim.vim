@@ -4,14 +4,15 @@ RMVIM
 Summary
 -------
 
-Vim GUI (MacVim, GVim) plugin to make remote editing more easy.
+Vim GUI (MacVim, GVim) plugin to make remote editing more easy (based on
+TextMate 2.0's rmate feature).
 
 
 Requirements
 ------------
 
 This script is meant to be used with MacVim or GVim on a Mac or linux system. 
-It makes use of the Netrw functionallity of vim.
+It makes use of the Netrw functionality of vim.
 
 
 Installation
@@ -43,6 +44,7 @@ The remote file opens locally in MacVim.
 
 Contact
 -------
+
 Wannes Meert  
 <http://people.cs.kuleuven.be/wannes.meert>
 
