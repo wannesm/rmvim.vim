@@ -20,12 +20,14 @@ endif
 let s:scriptpath = expand('<sfile>:p:h')
 
 fu! RmvimListenerStart()
-	let verbosestr = ''
-	if g:rmvim_verbose == 1
-		let verbosestr = '-v'
+	if has("gui_running")
+		let verbosestr = ''
+		if g:rmvim_verbose == 1
+			let verbosestr = '-v'
+		endif
+		let cmd = '!'.s:scriptpath.'/../util/rmvim_listener '.verbosestr.' -c '.g:rmvim_cmd.'&'
+		exec cmd
 	endif
-	let cmd = '!'.s:scriptpath.'/../util/rmvim_listener '.verbosestr.' -c '.g:rmvim_cmd.'&'
-	exec cmd
 endfu
 
 com! -nargs=0 RmvimListenerStart :call RmvimListenerStart()
