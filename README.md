@@ -12,24 +12,24 @@ Requirements
 ------------
 
 This script is meant to be used with MacVim or GVim on a Mac or linux system. 
-It makes use of the Netrw functionality of vim.
+It uses the Netrw functionality of vim to remotely edit files.
 
 
 Installation
 ------------
 
 1. Install the rmvim.vim plugin in your local .vim directory.
-2. Copy the file `rmvim.vim/util/rmvim` to your remote host in a directory that
+2. Copy the file `rmvim.vim/util/rmvim` to your remote host to a directory that
    is in your path.
 3. If you want to use gvim instead of mvim add the following to your .vimrc:  
-   `set g:rmvim_cmd = 'gvim'`
+   `let g:rmvim_cmd = 'gvim'`
 
 
 Usage
 -----
 
-Open a MacVim instance at least once. If this plugin is installed, this will
-automatically activate a listener (an instance of the `nc` command).
+Open a MacVim or GVim instance at least once. If this plugin is installed, this
+will automatically activate a listener (an instance of the `nc` command).
 
 Open a connection to your remote host with the command
 
@@ -49,9 +49,17 @@ Wannes Meert
 <http://people.cs.kuleuven.be/wannes.meert>
 
 
+Credits
+-------
+
+With contributions from:
+
+- [Sven Herzberg](https://github.com/herzi)
+
+
 License
 -------
 
-FreeBDS License
-Copyright (c) 2011, Wannes Meert (KULeuven). All rights reserved.
+FreeBSD License  
+Copyright (c) 2011-2012, Wannes Meert (KU Leuven). All rights reserved.
 

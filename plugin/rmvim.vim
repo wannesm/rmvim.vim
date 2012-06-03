@@ -1,8 +1,8 @@
 " rmvim.vim plugin
 " Author: Wannes Meert
 " Url: http://people.cs.kuleuven.be/wannes.meert/
-" Version: 1.0
-" Date: 23/12/2011
+" Version: 1.0.1
+" Date: 03/06/2012
 
 if exists('s:loaded')
 	finish
@@ -33,7 +33,7 @@ com! -nargs=0 RmvimListenerStart :call RmvimListenerStart()
 " Autorun at startup
 redir! > /tmp/foobar
 silent RmvimListenerStart
+redir END
 "RmvimListenerStart
 "silent exe "normal :RmvimListenerStart<CR>"
-redir END
 
