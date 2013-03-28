@@ -43,7 +43,7 @@ if [ $VERBOSE -eq 1 ]; then
 fi
 
 if which nc > /dev/null; then
-    echo -e "open:scp://$RHOST/$(pwd)/$PATH" | $(which nc) "$HOST" "$PORT"
+    echo -e "open:scp://$RHOST/$(pwd)/$PATH" | nc "$HOST" "$PORT"
 else
     exec 3<>/dev/tcp/$HOST/$PORT # Open tcp connection and assign fd 3 to it
     echo -e "open:scp://$RHOST/$(pwd)/$PATH" >&3
