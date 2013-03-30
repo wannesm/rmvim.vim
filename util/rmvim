@@ -42,8 +42,8 @@ if [ $VERBOSE -eq 1 ]; then
     echo "RHOST=$RHOST"
 fi
 
-if test -x `/usr/bin/which /usr/bin/nc`; then
-    echo -e "open:scp://$RHOST/$(pwd)/$PATH" | /usr/bin/nc "$HOST" "$PORT"
+if which nc > /dev/null; then
+    echo -e "open:scp://$RHOST/$(pwd)/$PATH" | nc "$HOST" "$PORT"
 else
     exec 3<>/dev/tcp/$HOST/$PORT # Open tcp connection and assign fd 3 to it
     echo -e "open:scp://$RHOST/$(pwd)/$PATH" >&3
