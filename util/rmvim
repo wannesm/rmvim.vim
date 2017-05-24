@@ -26,7 +26,7 @@ do  case "$o" in
     esac
 done
 shift $(($OPTIND-1))
-FILEPATH=$1
+FILEPATH="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 
 # VALUES
 LHOST=${SSH_CONNECTION%% *}
@@ -43,10 +43,10 @@ if [ $VERBOSE -eq 1 ]; then
 fi
 
 if which nc > /dev/null; then
-    echo -e "open:scp://$RHOST/$(pwd)/$FILEPATH" | nc "$HOST" "$PORT"
+    echo -e "open:scp://$RHOST/$FILEPATH" | nc "$HOST" "$PORT"
 else
     exec 3<>/dev/tcp/$HOST/$PORT # Open tcp connection and assign fd 3 to it
-    echo -e "open:scp://$RHOST/$(pwd)/$FILEPATH" >&3
+    echo -e "open:scp://$RHOST/$FILEPATH" >&3
     exec 3>&- # Close fd 3
 fi
 
