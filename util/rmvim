@@ -9,7 +9,7 @@ VERSION='rmvim version 1.0.1 (2012-06-03)'
 HOST=localhost
 PORT=52699
 VERBOSE=0
-PATH=""
+FILEPATH=""
 
 USAGE="Usage: rmvim [-vVh] [-p portnumber] file"
 
@@ -26,7 +26,7 @@ do  case "$o" in
     esac
 done
 shift $(($OPTIND-1))
-PATH=$1
+FILEPATH=$1
 
 # VALUES
 LHOST=${SSH_CONNECTION%% *}
@@ -43,10 +43,10 @@ if [ $VERBOSE -eq 1 ]; then
 fi
 
 if which nc > /dev/null; then
-    echo -e "open:scp://$RHOST/$(pwd)/$PATH" | nc "$HOST" "$PORT"
+    echo -e "open:scp://$RHOST/$(pwd)/$FILEPATH" | nc "$HOST" "$PORT"
 else
     exec 3<>/dev/tcp/$HOST/$PORT # Open tcp connection and assign fd 3 to it
-    echo -e "open:scp://$RHOST/$(pwd)/$PATH" >&3
+    echo -e "open:scp://$RHOST/$(pwd)/$FILEPATH" >&3
     exec 3>&- # Close fd 3
 fi
 
