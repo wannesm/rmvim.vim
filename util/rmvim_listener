@@ -35,7 +35,7 @@ OPEN() {
 }
 
 # MAIN
-nc -z $HOST $PORT 2>&1 > /dev/null
+nc -z $HOST $PORT > /dev/null 2>&1
 if [ $? -eq 0 ]; then
 	if [ $VERBOSE -eq 1 ]; then echo "Already instance listening to $PORT"; fi
 	exit
