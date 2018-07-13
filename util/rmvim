@@ -10,10 +10,12 @@ HOST=localhost
 PORT=52699
 VERBOSE=0
 FILEPATH=""
+USE_HOSTNAME_FOR_RHOST=0
+CUSTOM_RHOST_NAME=""
 
-USAGE="Usage: rmvim [-vVh] [-p portnumber] file"
+USAGE="Usage: rmvim [-vVhH] [-p portnumber] -c [name] file"
 
-while getopts vVhp: o
+while getopts vVhHp:c: o
 do  case "$o" in
     v)      VERBOSE=1;;
     p)      PORT="$OPTARG";;
@@ -21,6 +23,8 @@ do  case "$o" in
             exit 1;;
     h)      echo "$USAGE" >&2
             exit 1;;
+    H)      USE_HOSTNAME_FOR_RHOST=1;;
+    c)      CUSTOM_RHOST_NAME="$OPTARG";;
     [?])    echo "$USAGE" >&2
             exit 1;;
     esac
@@ -30,11 +34,17 @@ FILEPATH="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 
 # VALUES
 LHOST=${SSH_CONNECTION%% *}
-RHOST=${SSH_CONNECTION#* }
-RHOST=${RHOST#* }
-RHOST=${RHOST%% *} # Get 3rd argument, separated by spaces
-if [ -z "$RHOST" ]; then
-	RHOST=$HOST
+if [ -n "$CUSTOM_RHOST_NAME" ]; then
+  RHOST="$CUSTOM_RHOST_NAME"
+elif [ $USE_HOSTNAME_FOR_RHOST -eq 1 ]; then
+  RHOST=`hostname -f`
+else
+  RHOST=${SSH_CONNECTION#* }
+  RHOST=${RHOST#* }
+  RHOST=${RHOST%% *} # Get 3rd argument, separated by spaces
+  if [ -z "$RHOST" ]; then
+    RHOST=$HOST
+  fi
 fi
 
 # MAIN
@@ -69,7 +79,7 @@ To be used in conjuntion with rmvim_listener.
 
 =head1 USAGE
 
-rmvim [-vVh] [-p portnumber] file
+rmvim [-vVhH] [-p portnumber] -c [name] file
 
 =over 8
 
@@ -79,7 +89,11 @@ rmvim [-vVh] [-p portnumber] file
 
 =item -h Help
 
+=item -H Use hostname instead of IP in SSH command
+
 =item -p Portnumber (default: 52699)
+
+=item -c Name (use provided name instead of IP in SSH command)
 
 =back
 
