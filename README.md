@@ -18,11 +18,13 @@ It uses the Netrw functionality of vim to remotely edit files.
 Installation
 ------------
 
-1. Install the rmvim.vim plugin in your local .vim directory.
+1. Install the rmvim.vim plugin in your local .vim directory.  
+   Or use a plugin system such as Plug: `Plug 'wannesm/rmvim.vim`
 2. Copy the file `rmvim.vim/util/rmvim` to your remote host to a directory that
    is in your path.
 3. If you want to use gvim instead of mvim add the following to your .vimrc:  
-   `let g:rmvim_cmd = 'gvim'`
+   `let g:rmvim_cmd = 'gvim'`  
+   Other options include `vimr`, ...
 
 
 Usage
@@ -55,11 +57,14 @@ Credits
 With contributions from:
 
 - [Sven Herzberg](https://github.com/herzi)
+- [John Leen](https://github.com/jleen)
+- [thehunmokngroup](https://github.com/thehunmonkgroup)
+- [Keith Smiley](https://github.com/keith)
 
 
 License
 -------
 
 FreeBSD License  
-Copyright (c) 2011-2012, Wannes Meert (KU Leuven). All rights reserved.
+Copyright (c) 2011-2018, Wannes Meert (KU Leuven). All rights reserved.
 

@@ -2,9 +2,9 @@
 # encoding: UTF-8
 #
 # Created by Wannes Meert on 2011-12-20.
-# Copyright (c) 2011-2012 KU Leuven. All rights reserved.
+# Copyright (c) 2011-2018 KU Leuven. All rights reserved.
 
-VERSION='rmvim version 1.0.1 (2012-06-03)'
+VERSION='rmvim version 1.1.0 (2018-07-15)'
 
 HOST=localhost
 PORT=52699
@@ -97,7 +97,7 @@ http://people.cs.kuleuven.be/wannes.meert
 
 FreeBSD License
 
-Copyright (c) 2011-2012, Wannes Meert (KU Leuven). All rights reserved.
+Copyright (c) 2011-2018, Wannes Meert (KU Leuven). All rights reserved.
 
 =cut
 
