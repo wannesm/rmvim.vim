@@ -19,7 +19,7 @@ Installation
 ------------
 
 1. Install the rmvim.vim plugin in your local .vim directory.  
-   Or use a plugin system such as Plug: `Plug 'wannesm/rmvim.vim`
+   Or use a plugin system such as Plug: `Plug 'wannesm/rmvim.vim'`
 2. Copy the file `rmvim.vim/util/rmvim` to your remote host to a directory that
    is in your path.
 3. If you want to use gvim instead of mvim add the following to your .vimrc:  
